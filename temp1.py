@@ -1,41 +1,9 @@
 import cv2
 import numpy as np
 import sys
-from staticButtons import staticButtons
-from button import button
-
-class fieldBox(button):
-    def __init__(self, x=0, y=0, h=100, w=100):
-        super().__init__( x = x , y = y , h = h , w = w )
-
-    # responsible for changing dimention according to the (mouseWX) pos
-    def setDimension(self, pos):
-        self.w = pos[0] - self.x
-        self.h = pos[1] - self.y
-        if self.w<0 :
-            self.w = self.x
-            self.x = pos[0]
-        if self.h<0 :
-            self.h = self.y
-            self.y = pos[1]
-        self.x2 = pos[0]
-        self.y2 = pos[1]
-    
-    # this will check if the object is in the dimension Position change area return true or false
-    def isSelect(self, pos):
-        # to set bewteen the box of field of 20 X 20 above the left most top corner
-        if (pos[0] > self.x) and (pos[0] < self.x+10) and (pos[1] > self.y-10) and (pos[1] < self.y) :
-            return 0
-        elif (pos[0] > self.x + self.w ) and (pos[0] < self.x + self.w +5) and (pos[1] > self.y + self.h) and (pos[1] < self.y+self.w+5) :
-            return 1
-        return -1
-    
-    # this resposible for changing the dimension and the position of the field box
-    def action(self, type , pos):
-        if type == 0 :
-            self.setPos(pos)
-        elif type == 1:
-            self.setDimension(pos)            
+from buttonsSetUpClasses.staticButtons import staticButtons
+from buttonsSetUpClasses.fieldBox import fieldBox
+from fontAndTextSetup.fontGenerate import Writer
 
 class window(staticButtons):
     def __init__(self):
@@ -55,11 +23,22 @@ class window(staticButtons):
         self.createFieldBox( h=50, w=100 , x= 30 , y =50)
         self.createFieldBox( h=50, w=50 , x= 500 , y =50)
 
+        # self.writeInTheField()
+        # writer for writing the text in the field box
+        self.textWriter = Writer()
+
+
         # merging the Field box with the window
         self.setFieldBoxesInWindow()
         while self.runProgram:
             self.showWindow() # showing the image
     
+    def placeNewFieldBox(self,text = "This is the text in the text box "):
+        self.createFieldBox(h=50, w=100, x=30, y=50)
+        
+        pass
+
+    # this is responsible for the merging the static buttons created in the web pages
     def mergeStaticButtons(self):
         for i,each in enumerate(self.staticButtons):
             try :
@@ -69,10 +48,20 @@ class window(staticButtons):
                 print(e)
                 print(f"object index is {i}\n{"_"*100}")
                 sys.exit(0)
-        
+    
+    # font and font size neeed to be add in the future
+    def writeInTheField(self, fieldId = 0, text= "hwllo world"):
+        print("ues")
+        x, y, h, w = self.fields[0].x , self.fields[0].y , self.fields[0].h , self.fields[0].w
+        print(x,y,h,w)
+        # image = self.base[x: x+ w , y: y+h]
+        # print(image.shape)
+        # cv2.imshow("om,age", image)
+        # cv2.waitKey(0)
+        pass
 
     def createFieldBox(self, x=0, y=0, h=100, w=100):
-        self.fields.append(fieldBox(x=x, y=y, h=h, w=w)) # new object is creted and added to the field list
+        self.fields.append(fieldBox(x=x, y=y, h=h, w=w, i= len(self.fields)+1)) # new object is creted and added to the field list
     
     def setFieldBoxesInWindow(self):
         for i, each in enumerate(self.fields):
@@ -80,7 +69,7 @@ class window(staticButtons):
             cv2.rectangle(self.img , (each.x , each.y) , (each.x2 , each.y2) ,(0,0,0) , 1)
             cv2.rectangle(self.img , (each.x , each.y-10) , (each.x+10 , each.y) ,(0,0,0) , -1)
             cv2.rectangle(self.img , (each.x2 , each.y2) , (each.x2+5 , each.y2+5) ,(0,0,0) , -1)
-
+            # self.writeInTheField(i, "")
     
     # display the window with the callback functions
     def showWindow(self): 
@@ -106,6 +95,9 @@ class window(staticButtons):
                 print(f"button {i} is pressed")
                 self.staticButtons[each].action()
 
+    def mergeFields(self):
+
+        pass
     # callbackFunctions for the mouce in the window
     def mouse_event_check(self,event,x,y,flag,param):
         if event==cv2.EVENT_LBUTTONDOWN:
@@ -120,7 +112,8 @@ class window(staticButtons):
                 self.fields[self.selectedFieldBox[0]].action(self.selectedFieldBox[1], (x,y))
                 del self.img
                 self.img = self.base.copy()
-                print(self.fields[0].x , self.fields[0].y)
+                # self.mergeFields()
+                # print(self.fields[0].x , self.fields[0].y)
                 self.setFieldBoxesInWindow()
         
         if event==cv2.EVENT_LBUTTONUP:
@@ -129,4 +122,3 @@ class window(staticButtons):
             self.LeftMouseButtonDown = False
 
 a = window()
-

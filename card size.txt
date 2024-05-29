@@ -1,0 +1,8 @@
+average size : 86 * 53 mm 
+
+min size : 80 * 50 mm  
+max size : 90 * 60 mm 
+
+side : 8 mm margin
+between : 1-2 mm margin
+

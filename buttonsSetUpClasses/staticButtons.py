@@ -1,14 +1,16 @@
 import cv2
 import numpy as np
-from button import button
+from buttonsSetUpClasses.button import button
+from fontAndTextSetup.fontGenerate import Writer
+
 class staticButtons:
     def __init__(self):
         self.staticButtons = {}
         self.Button()
         
     def Button(self , h = 50 , w= 50 , color = (0,0,255)):
-        cross = self.crossButton()
-        tick = self.tickButton()
+        cross = self.addButton()
+        tick = self.doneButton()
         cross.x = 100 
         cross.y = 100
         cross.setPos((100,100))
@@ -28,10 +30,10 @@ class staticButtons:
         def action(self):
             print("Action to be submited in each classes")
 
-    class crossButton(staticButton):
+    class addButton(staticButton):
         def __init__(self):
             super().__init__()
-            self.img[:] = (0,0,255)
+            self.img[:] = (255,0,0)
             cv2.rectangle(self.img, (0,0) , (self.w-1 , self.h-1) , (0,0,0), 2)
             self.createCross()
         
@@ -42,18 +44,20 @@ class staticButtons:
                     if (i==j or i==x-j) and i>5 and i<y-5  :
                         self.img[i][j] = [0,0,0]
             
-    class tickButton(staticButton):
+    class doneButton(staticButton):
         def __init__(self):
             super().__init__()
             self.img[:] = [0,255,0]
-            self.createTick()
+            self.writeDone()
 
-        def createTick(self):
+        def writeDone(self):
             cv2.rectangle(self.img, (0,0) , (self.w-1 , self.h-1) , (0,0,0), 2)
             x,y,z = self.img.shape
+            writer = Writer()
+            self.img = writer.writeLineS(self.img, fontSize=20, text="Done", mode=1)
             # creating the tick 
             # to be fix not fixed right now!
-            for i in range(y):
-                for j in range(x):
-                    if (i > x/2 and j-5 == (i - x/2) and j< y/2) or (i>x/3 and i == x-j + 20 and i>5 and i<y-5):
-                        self.img[i][j] = [0,0,0]
+            # for i in range(y):
+            #     for j in range(x):
+            #         if (i > x/2 and j-5 == (i - x/2) and j< y/2) or (i>x/3 and i == x-j + 20 and i>5 and i<y-5):
+            #             self.img[i][j] = [0,0,0]
