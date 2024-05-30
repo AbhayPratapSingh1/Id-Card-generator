@@ -8,19 +8,39 @@ class staticButtons:
         self.staticButtons = {}
         self.Button()
         
-    def Button(self , h = 50 , w= 50 , color = (0,0,255)):
-        cross = self.addButton()
-        tick = self.doneButton()
-        cross.x = 100 
-        cross.y = 100
-        cross.setPos((100,100))
-        tick.setPos((100,200))
-        self.staticButtons["cross"] = cross
-        self.staticButtons["tick"] = tick
+    def Button(self ):
+        temp = self.createButton("Next")
+        self.staticButtons["next"] = temp
+        
+        temp = self.createButton("Add Font",pos=(200,0), mode=2)
+        self.staticButtons["addFont"] = temp
+        
 
+        temp = self.createButton("L",pos=(490,0), h=30 , w=30, fontSize=12)
+        self.staticButtons["l"] = temp
+
+        temp = self.createButton("B",pos=(520, 0), h=30 , w=30, fontSize=12)
+        self.staticButtons["b"] = temp
+
+        temp = self.createButton("R",pos=(550, 0),  h=30 , w=30, fontSize=12)
+        self.staticButtons["r"] = temp
+
+        temp = self.createButton("C", color=(100,100,100),pos=(550, 40),  h=30 , w=30, fontSize=12)
+        self.staticButtons["c"] = temp
+
+        pass
+
+    def createButton(self, text=" ", h = 50 , w = 50 , color = (0,200,0), pos=(0,0), fontColor=(0, 0, 0), fontSize=20, mode=4):
+        next = self.staticButton( h = h , w = w)
+        next.bgColor(color=color)
+        next.write(text, fontColor, fontSize, mode )
+        next.setPos(pos)
+        return next
+    
     class staticButton(button):
         def __init__(self , x = 50 , y = 50 , h = 50, w = 50 ):
             super().__init__(x=x, y=y, h=h, w=w)
+            
             
         def isSelected(self,pos):
             if pos[0] >= self.x and pos[0] < self.x2 and pos[1] >= self.y and pos[1] < self.y2:
@@ -30,34 +50,28 @@ class staticButtons:
         def action(self):
             print("Action to be submited in each classes")
 
-    class addButton(staticButton):
-        def __init__(self):
-            super().__init__()
-            self.img[:] = (255,0,0)
-            cv2.rectangle(self.img, (0,0) , (self.w-1 , self.h-1) , (0,0,0), 2)
-            self.createCross()
-        
-        def createCross(self):
-            y,x,z = self.img.shape
-            for i in range(y):
-                for j in range(x):
-                    if (i==j or i==x-j) and i>5 and i<y-5  :
-                        self.img[i][j] = [0,0,0]
-            
-    class doneButton(staticButton):
-        def __init__(self):
-            super().__init__()
-            self.img[:] = [0,255,0]
-            self.writeDone()
-
-        def writeDone(self):
-            cv2.rectangle(self.img, (0,0) , (self.w-1 , self.h-1) , (0,0,0), 2)
-            x,y,z = self.img.shape
+        def write(self, text, fontColor=(0, 0, 0), fontSize=20, mode=4):
             writer = Writer()
-            self.img = writer.writeLineS(self.img, fontSize=20, text="Done", mode=1)
-            # creating the tick 
-            # to be fix not fixed right now!
-            # for i in range(y):
-            #     for j in range(x):
-            #         if (i > x/2 and j-5 == (i - x/2) and j< y/2) or (i>x/3 and i == x-j + 20 and i>5 and i<y-5):
-            #             self.img[i][j] = [0,0,0]
+            self.img = writer.writeLineS(self.img, fontSize=fontSize, text=text, mode=mode)
+
+        def bgColor(self, color):
+            self.img[:] = color
+            cv2.rectangle(self.img, (0,0) , (self.w-1 , self.h-1) , (0,0,0), 2)
+        
+    # class addButton(staticButton):
+    #     def __init__(self):
+    #         super().__init__()
+    #         self.write("ADD")
+        
+            
+    # class doneButton(staticButton):
+    #     def __init__(self):
+    #         super().__init__()
+    #         self.img[:] = [0,255,0]
+    #         cv2.rectangle(self.img, (0,0) , (self.w-1 , self.h-1) , (0,0,0), 2)
+    #         self.write("Done")
+
+    #     def writeDone(self):
+    #         cv2.rectangle(self.img, (0,0) , (self.w-1 , self.h-1) , (0,0,0), 2)
+    #         x,y,z = self.img.shape
+            

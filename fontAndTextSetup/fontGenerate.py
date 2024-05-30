@@ -48,7 +48,12 @@ class Writer:
             position[0] = size[0]
             position[0] = position[0] - textSize[0]
             pass
-
+        elif mode==4: # mode 4 for the center of the field or static dynamic box
+            position[0] = size[0]//2
+            position[1] = size[1]//2
+            position[0] = position[0] - textSize[0]//2
+            position[1] = position[1] - textSize[1]
+            pass            
         self.position = position
 
     def writeLine(self, image, fontPath = None, position = (0,0), fontSize=10, text=" ", color=(0,0,0), mode= 2 ):
@@ -70,18 +75,15 @@ class Writer:
         image_with_text = np.array(image_pil)
         return image_with_text
 
-    def writeLineS(self, image, fontPath="./fontAndTextSetup/testFont.ttf", fontSize = 10, text=" ", mode = 1, heightGap = 10 ):
+    def writeLineS(self, image, fontPath="./fontAndTextSetup/testFont.ttf", fontSize = 10, text=" ", mode = 1, heightGap = 10, color=(0,0,0)):
         self.img = image
         self.loadFont(fontPath, fontSize)
         y, x = image.shape[0:2]
+        self.Lines = []
         self.textBreaker((x,y), text, heightGap= heightGap)
-
         for eachLine, yCord in self.Lines:
-            self.img = self.writeLine(text=eachLine ,image = self.img, position=(0, yCord), mode=mode)
-
-        cv2.imshow("image", self.img)
-        cv2.waitKey(0)
-        cv2.imwrite("img.png", self.img)
+            self.img = self.writeLine(text=eachLine ,image = self.img, position=(0, yCord), color=color, mode=mode)
+        return self.img
         
     def textBreaker(self, size, text, heightGap = 10):
         st = 0
@@ -90,6 +92,8 @@ class Writer:
             textBox = self.font.getbbox(text[st: i+1])
             textSize = self.textDimension(textBox)
             if textSize[0] >= size[0]:
+                # if " " in text[st:i]:
+                #     print("yes")
                 self.Lines.append((text[st:i], height))
                 height = height + textSize[1] + heightGap
                 st = i

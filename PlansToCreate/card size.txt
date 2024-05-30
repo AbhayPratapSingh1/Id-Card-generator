@@ -1,0 +1,13 @@
+average size : 86 * 53 mm  == 1015.7 * 625.9
+
+min size : 80 * 50 mm   == 944.8 * 590.5
+max size : 90 * 60 mm  ==  1062.9 * 708.6
+
+max size : taken = 1/2 = 1062 => 532 
+                 = 1/2 = 708 => 354
+
+
+side : 8 mm margin  == 94.5
+between : 1-2 mm margin == 11.8-24.6
+
+max image size us equal to the height of the page = 600 px i guesss

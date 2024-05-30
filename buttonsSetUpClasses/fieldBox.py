@@ -35,3 +35,7 @@ class fieldBox(button):
             self.setPos(pos)
         elif type == 1:
             self.setDimension(pos)
+
+class ImageField(button):
+    def __init__(self):
+        pass

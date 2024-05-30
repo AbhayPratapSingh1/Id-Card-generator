@@ -8,7 +8,9 @@ class button:
         self.w = w # width
         self.x2 = x + w # x final cordinate
         self.y2 = y + h # y final cordinate
-        self.img = np.zeros([y,x,3] , dtype=np.uint8) # image of the size mentioned
+        self.pos = (self.x, self.y)
+
+        self.img = np.zeros([h,w,3] , dtype=np.uint8) # image of the size mentioned
     
     # responsible for changing the position of the object
     def setPos(self, pos):
@@ -16,3 +18,10 @@ class button:
         self.y = pos[1]
         self.x2 = self.x + self.w
         self.y2 = self.y + self.h
+        self.pos = (self.x, self.y)
+    def setLastCord(self,pos):
+        self.x2 = pos[0]
+        self.y2 = pos[1]
+        self.h - self.y2-self.y
+        self.w - self.x2-self.x
+        
