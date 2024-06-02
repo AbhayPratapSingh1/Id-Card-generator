@@ -1,0 +1,1 @@
+        self.data = pd.read_excel(d

@@ -3,12 +3,12 @@ import numpy as np
 import cv2
 import sys
 from buttonsSetUpClasses.staticButtons import staticButtons
+
 class Handler(staticButtons):
     def __init__(self):
         super().__init__()
         self.handler = np.full((600 , 600 , 3),255,dtype = np.uint8)
         self.mergeStaticButtons()
-        pass
 
     def mergeStaticButtons(self):
         for i,each in enumerate(self.staticButtons):
@@ -35,12 +35,7 @@ class Handler(staticButtons):
                 elif each == "done":
                     # this will store the details of the field in the files or the memory for the future use
                     self.saveData()
-                    pass
-    
     
     def mouse_event_check_handler(self,event,x,y,flag,param):
         if event==cv2.EVENT_LBUTTONDOWN:
             self.checkIfStaticButtonIsSelected((x,y))
-    
-    
-# a = Handler()

@@ -22,6 +22,6 @@ class button:
     def setLastCord(self,pos):
         self.x2 = pos[0]
         self.y2 = pos[1]
-        self.h - self.y2-self.y
-        self.w - self.x2-self.x
+        self.h = self.y2-self.y
+        self.w = self.x2-self.x
         

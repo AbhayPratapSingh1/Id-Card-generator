@@ -3,8 +3,9 @@ import numpy as np
 import sys
 from buttonsSetUpClasses.fieldBox import fieldBox
 from fontAndTextSetup.fontGenerate import Writer
-from temp1b import Handler
-from dataReader import dataManager
+from staticFieldHandlingClass.temp1b import Handler
+from dataHandlerClass.dataReader import dataManager
+from UselessCodedFiles.imageFormate import ImageHandler
 
 def nothing(temp):
     pass
@@ -33,20 +34,22 @@ class main(Handler):
         self.setFontInField = True
         self.mode = 1
         self.fieldSelected = False
-        
+
         # writer for writing the text in the field box
         self.textWriter = Writer()
+
         cv2.imshow("Handler",self.handler)
         self.trackbar()
         while self.runProgram:
             self.showWindow() # showing the image
         cv2.destroyAllWindows()
     
+    
     # display the window with the callback functions
     def showWindow(self): 
         self.copyFontInField()
         cv2.imshow(self.name,self.img)
-        cv2.imshow("Handler",self.handler)
+        # cv2.imshow("Handler",self.handler)
         cv2.setMouseCallback("Handler",self.mouse_event_check_handler)
         cv2.setMouseCallback(self.name,self.mouse_event_check_card)
 
@@ -114,7 +117,6 @@ class main(Handler):
                 if len(self.data) == len(self.mainData): return
                 textImage = self.addFont(textImage, self.data[len(self.mainData)])
                 self.mergeFieldToImg(textImage, h, h2, w, w2, to)
-        
 
         
     def addFont(self, image, dataString):
@@ -192,7 +194,7 @@ class main(Handler):
         pass
 
 dataHandler = dataManager()
-header = dataHandler.getHeader()
+header = [ i.upper() for i in  dataHandler.getHeader()  ]
 image = cv2.imread("background.jpg")
 size = [400, 500]
 a = main(data=header , image= image)

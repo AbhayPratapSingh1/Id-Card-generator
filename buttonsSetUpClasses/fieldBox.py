@@ -5,7 +5,7 @@ class fieldBox(button):
     def __init__(self, x=0, y=0, h=100, w=100, i=0):
         self.id = i
         super().__init__( x = x , y = y , h = h , w = w )
-
+    
     # responsible for changing dimention according to the (mouseWX) pos
     def setDimension(self, pos):
         self.w = pos[0] - self.x
@@ -36,6 +36,3 @@ class fieldBox(button):
         elif type == 1:
             self.setDimension(pos)
 
-class ImageField(button):
-    def __init__(self):
-        pass
