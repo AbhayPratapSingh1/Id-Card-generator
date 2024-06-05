@@ -97,5 +97,3 @@ class imageField(button):
             x = pos[0] - self.x
             y = pos[1] - self.y
             self.resizeTO((x,y))
-# a = imageField()
-# a.setMode(2)

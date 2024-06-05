@@ -1,0 +1,17 @@
+# Enter xlsx file name WITH EXTENSION eg : data.xlsx and place file in this Folder
+dataFileName = "data.xlsx"
+
+# Enter background Image name WITH EXTENSION eg : background.jpg and place file in this Folder
+cardBackgroundImage = "background.jpg"
+
+# Enter Student Images Folder Name in which all photo of student is place eg : "Photo" and 
+# ******* DONOT USE SPACE IN THE FOLDER NAME ******* 
+photoFolder = "Photo"
+
+# Enter the column Name in which Photo Name is Mensioned in xlsx File
+PhotoColumn = "PHOTO"
+
+# *** Set True or False in the following
+# all text converted into capital text eg : "ram" converted into "RAM" of the xlsx file
+setTextCapital = True
+

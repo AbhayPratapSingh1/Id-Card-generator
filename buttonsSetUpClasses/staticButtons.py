@@ -9,30 +9,53 @@ class staticButtons:
         self.Button()
         
     def Button(self ):
-        temp = self.createButton("Next")
+
+        temp = self.createButton("Next Field", pos=(200,100), w=150, mode=4, fontSize= 25)
         self.staticButtons["next"] = temp
-        
-        temp = self.createButton("Add Font",pos=(200,0), mode=2)
-        self.staticButtons["addFont"] = temp
+
+        temp = self.createButton("Rectangle Img",pos=(450,0), mode=4,w=100, fontSize= 15)
+        self.staticButtons["rectangle"] = temp
+        temp = self.createButton("Square Img",pos=(450,50), mode=4,w=100, fontSize= 15)
+        self.staticButtons["square"] = temp
+        temp = self.createButton("Circle Img",pos=(450,100), w=100, mode=4, fontSize= 15)
+        self.staticButtons["circle"] = temp
+        temp = self.createButton(" ",pos=(555,0), color=(200,200,0), mode=4, w=40, h=150, fontSize= 15)
+        self.staticButtons["toggle Image"] = temp
+        temp = self.createButton("X",pos=(560,10), color=(20,20,140), mode=4, w=30, h=30, fontSize= 15)
+        self.staticButtons["ImgToggler"] = temp
         
 
-        temp = self.createButton("L",pos=(490,0), h=30 , w=30, fontSize=12)
+
+        temp = self.createButton("Img in Ratio :",pos=(300,180), color=(255,250,255), mode=4,w=200, fontSize= 20 , border=(255,255,255))
+        self.staticButtons["description of in Ratio"] = temp
+        temp = self.createButton(" ",pos=(500,180), color=(200,200,0), mode=4, w=80, h=40, fontSize= 15)
+        self.staticButtons["toggle Ratio"] = temp
+        temp = self.createButton("X",pos=(545,185), color=(20,20,140), mode=4,w=30, h=30, fontSize= 15)
+        self.staticButtons["ratioToggler"] = temp
+
+        
+
+        temp = self.createButton("L",pos=(340,0), h=30 , w=30, fontSize=12)
         self.staticButtons["l"] = temp
-
-        temp = self.createButton("B",pos=(520, 0), h=30 , w=30, fontSize=12)
-        self.staticButtons["b"] = temp
-
-        temp = self.createButton("R",pos=(550, 0),  h=30 , w=30, fontSize=12)
-        self.staticButtons["r"] = temp
-
-        temp = self.createButton("C", color=(100,100,100),pos=(550, 40),  h=30 , w=30, fontSize=12)
+        temp = self.createButton("C",pos=(370, 0), h=30 , w=30, fontSize=12)
         self.staticButtons["c"] = temp
+        temp = self.createButton("R",pos=(400, 0),  h=30 , w=30, fontSize=12)
+        self.staticButtons["r"] = temp
+        temp = self.createButton(" ",pos=(340,40), color=(200,200,0), mode=4, w=90, h=30, fontSize= 15)
+        self.staticButtons["toggle text"] = temp
+        temp = self.createButton("X",pos=(345,45), color=(20,20,140), mode=4,w=20, h=20, fontSize= 13)
+        self.staticButtons["textToggler"] = temp
+
+
+
+        # temp = self.createButton("C", color=(100,100,100),pos=(370, 60),  h=30 , w=30, fontSize=12)
+        # self.staticButtons["c"] = temp
 
         pass
 
-    def createButton(self, text=" ", h = 50 , w = 50 , color = (0,200,0), pos=(0,0), fontColor=(0, 0, 0), fontSize=20, mode=4):
+    def createButton(self, text=" ", h = 50 , w = 50 , color = (0,200,0), pos=(0,0), fontColor=(0, 0, 0), fontSize=20, mode=4, border= (0,0,0)):
         next = self.staticButton( h = h , w = w)
-        next.bgColor(color=color)
+        next.bgColor(color=color, border= border)
         next.write(text, fontColor, fontSize, mode )
         next.setPos(pos)
         return next
@@ -54,9 +77,9 @@ class staticButtons:
             writer = Writer()
             self.img = writer.writeLineS(self.img, fontSize=fontSize, text=text, mode=mode)
 
-        def bgColor(self, color):
+        def bgColor(self, color, border):
             self.img[:] = color
-            cv2.rectangle(self.img, (0,0) , (self.w-1 , self.h-1) , (0,0,0), 2)
+            cv2.rectangle(self.img, (0,0) , (self.w-1 , self.h-1) , border, 2)
         
     # class addButton(staticButton):
     #     def __init__(self):

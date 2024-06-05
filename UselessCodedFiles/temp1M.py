@@ -3,7 +3,7 @@ import numpy as np
 import sys
 from buttonsSetUpClasses.fieldBox import fieldBox
 from fontAndTextSetup.fontGenerate import Writer
-from staticFieldHandlingClass.temp1b import Handler
+from M2.HandlerStaticFields import Handler
 from dataHandlerClass.dataReader import dataManager
 from UselessCodedFiles.imageFormate import ImageHandler
 
