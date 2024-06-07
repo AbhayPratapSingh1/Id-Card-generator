@@ -12,10 +12,12 @@ class Generator:
         self.dataFrame = dataFrame
         self.fieldDetail = fieldDetail
         self.images = self.dataFrame[self.ImageCol].tolist()
-        print(self.images)
         self.writer = Writer()
         self.createAll()
 
+    def getImgPath_Name(self):
+        return self.images, self.savePath
+    
     def createAll(self):
         
         for i in range(len(self.dataFrame)):

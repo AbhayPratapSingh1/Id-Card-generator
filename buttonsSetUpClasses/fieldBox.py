@@ -24,7 +24,7 @@ class fieldBox(button):
         # to set bewteen the box of field of 20 X 20 above the left most top corner
         if (pos[0] > self.x) and (pos[0] < self.x+10) and (pos[1] > self.y-10) and (pos[1] < self.y) :
             return 0
-        elif (pos[0] > self.x + self.w ) and (pos[0] < self.x + self.w +5) and (pos[1] > self.y + self.h) and (pos[1] < self.y+self.w+5) :
+        elif (pos[0] > self.x + self.w ) and (pos[0] < self.x + self.w +10) and (pos[1] > self.y + self.h) and (pos[1] < self.y+self.w+10) :
             return 1
         return -1
 

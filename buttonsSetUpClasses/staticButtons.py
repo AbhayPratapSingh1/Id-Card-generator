@@ -12,6 +12,11 @@ class staticButtons:
 
         temp = self.createButton("Next Field", pos=(200,100), w=150, mode=4, fontSize= 25)
         self.staticButtons["next"] = temp
+        
+        temp = self.createButton("Up", pos=(500,400), w=80, mode=4, fontSize= 25)
+        self.staticButtons["up"] = temp
+        temp = self.createButton("down", pos=(500,460), w=80, mode=4, fontSize= 25)
+        self.staticButtons["down"] = temp
 
         temp = self.createButton("Rectangle Img",pos=(450,0), mode=4,w=100, fontSize= 15)
         self.staticButtons["rectangle"] = temp

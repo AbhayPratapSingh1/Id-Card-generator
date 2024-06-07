@@ -92,12 +92,15 @@ class Writer:
             textBox = self.font.getbbox(text[st: i+1])
             textSize = self.textDimension(textBox)
             if textSize[0] >= size[0]:
-                # if " " in text[st:i]:
-                #     print("yes")
+                if text[i-1] != " " :
+                    if len(text)> i and text[i] != " " and " " in text[st:i]:
+                        while text[i-1] != " ":
+                            i = i-1
                 self.Lines.append((text[st:i], height))
                 height = height + textSize[1] + heightGap
                 st = i
         self.Lines.append((text[st:i+1], height))
+        # print("line : ",self.Lines)
 
 # for code checking and debugging
 # image = np.full((500, 300, 3), 200, np.uint8)

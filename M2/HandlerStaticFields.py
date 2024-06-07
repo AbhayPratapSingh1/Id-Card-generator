@@ -3,6 +3,7 @@ import numpy as np
 import cv2
 import sys
 from buttonsSetUpClasses.staticButtons import staticButtons
+import pygetwindow
 
 class Handler(staticButtons):
     def __init__(self):
@@ -25,6 +26,7 @@ class Handler(staticButtons):
         for each in self.staticButtons:
             selected = self.staticButtons[each].isSelected(pos)  # return -1 if box is not selected and 0 if move and 1 if dimension selected
             if selected:
+
                 if each == "next":
                     if len(self.data) == 1 :
                         self.saveData()
@@ -34,7 +36,17 @@ class Handler(staticButtons):
                         self.createFieldBox()
                     if self.imgField != -1 :
                         self.imgField = -1
-                        
+
+                elif each =="up":
+                    self.windowY -= 300
+                    if self.windowY <0 : 
+                        self.windowY = 0
+        
+                elif each =="down":
+                    self.windowY += 300        
+                    if self.windowY >self.base.shape[0] - 300 : 
+                        self.windowY -= 300 
+
                 elif each == "l":
                     if self.imgField == -1:
                         self.mode = 1

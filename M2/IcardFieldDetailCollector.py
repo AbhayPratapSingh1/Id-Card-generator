@@ -3,6 +3,7 @@ from buttonsSetUpClasses.fieldBox import fieldBox
 from ImageHandlingClass.ImageField import imageField
 from fontAndTextSetup.fontGenerate import Writer
 from  M2.HandlerStaticFields import Handler
+import pygetwindow
 
 def nothing(self):
     pass
@@ -10,6 +11,10 @@ def nothing(self):
 class DetailCollector(Handler):
     def __init__(self, data, backgroundImagePath, demoPhoto):
         super().__init__()
+
+        self.windowX = 0
+        self.windowY = 0
+
         self.data = data ## xslx headers
         self.fieldDetails = []
 
@@ -71,7 +76,7 @@ class DetailCollector(Handler):
     def createFBoxes(self, box):
         cv2.rectangle(self.img , (box.x-1 , box.y-1) , (box.x2 , box.y2) ,(0,0,0) , 1)
         cv2.rectangle(self.img , (box.x-1 , box.y-11) , (box.x+10 , box.y-1) ,(0,0,0) , -1)
-        cv2.rectangle(self.img , (box.x2 , box.y2) , (box.x2+5 , box.y2+5) ,(0,0,0) , -1)
+        cv2.rectangle(self.img , (box.x2 , box.y2) , (box.x2+10 , box.y2+10) ,(0,0,0) , -1)
     
     def mergeBorder(self, data):
         cv2.rectangle(self.base, (data["x"],data["y"]), (data["x1"], data["y1"]), (0,0,255), 1)
@@ -133,7 +138,7 @@ class DetailCollector(Handler):
                 self.mergeField(textImage, h, h2, w, w2, to)
 
     def addFont(self, image, dataString):
-        image = self.textWriter.writeLineS(image=image , fontSize=self.fontSize, text=dataString, color = (self.B, self.G, self.R) , mode=self.mode)
+        image = self.textWriter.writeLineS(image=image , fontSize=self.fontSize, text=str(dataString), color = (self.B, self.G, self.R) , mode=self.mode)
         return image
     
     def saveData(self):
